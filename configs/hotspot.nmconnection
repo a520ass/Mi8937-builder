@@ -1,0 +1,17 @@
+[connection]
+id=hotspot
+uuid=f9ab6583-91df-496f-90a8-639bd3253a27
+type=wifi
+autoconnect=false
+interface-name=wlan0
+
+[wifi]
+mode=infrastructure
+
+[ipv4]
+method=disabled
+
+[ipv6]
+method=disabled
+
+[proxy]
