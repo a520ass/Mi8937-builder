@@ -58,13 +58,13 @@ jobs:
           branch="$GITHUB_REF_NAME"
           case "$branch" in
             debian)
-              base="openstick-debian" ;;
+              base="mi8937-debian" ;;
             ubuntu-*)
-              base="openstick-ubuntu" ;;
+              base="mi8937-ubuntu" ;;
             *)
               # Fallback: sanitize branch for artifact naming
               sanitized=$(echo "$branch" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9' '-')
-              base="openstick-${sanitized}" ;;
+              base="mi8937-${sanitized}" ;;
           esac
           echo "base=$base" >> "$GITHUB_OUTPUT"
           echo "zip=${base}.zip" >> "$GITHUB_OUTPUT"
