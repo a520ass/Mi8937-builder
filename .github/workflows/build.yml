@@ -46,17 +46,8 @@ jobs:
       - name: Install dependencies
         run: sudo sh -e scripts/install_deps.sh
 
-      - name: Build hyp and aboot firmware
-        run: sudo sh -e scripts/build_hyp_aboot.sh
-
-      - name: Extract firmware
-        run: sudo sh -e scripts/extract_fw.sh
-
       - name: Create rootfs
         run: sudo sh -e scripts/debootstrap.sh
-
-      - name: Build gadget-tool
-        run: sudo sh -e scripts/build_gt.sh
 
       - name: Create images
         run: sudo sh -e scripts/build_images.sh
