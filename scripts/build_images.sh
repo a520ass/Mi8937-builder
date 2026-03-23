@@ -20,7 +20,7 @@ mount rootfs.raw mnt
 tar xpf rootfs.tgz -C mnt --exclude='./boot/*' --exclude='./root/*' --exclude='./dev/*'
 
 # install gt
-cp -a dist/* mnt
+#cp -a dist/* mnt
 
 umount mnt
 
