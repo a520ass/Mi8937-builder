@@ -93,14 +93,20 @@ chmod +x ${CHROOT}/usr/sbin/wifi-ap.sh
 
 cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
 
-# install kernel
-wget -O - https://mirrors.tuna.tsinghua.edu.cn/postmarketOS/main/aarch64/linux-postmarketos-qcom-msm89x7-6.19.5-r1.apk \
-    | tar xkzf - -C ${CHROOT} --exclude=.PKGINFO --exclude=.SIGN* 2>/dev/null
+# install targz kernel
+wget -O - https://github.com/a520ass/Armbian-build/releases/download/Linux_Kernel_2026.03.30-0939/linux-6.19.5-msm8937-arm64.tar.gz \
+    | tar xzf - -C ${CHROOT}/root/ 2>/dev/null
+mkdir -p ${CHROOT}/boot/
+cp -rfpa ${CHROOT}/root/boot/* ${CHROOT}/boot/
+cp -rfpa ${CHROOT}/root/lib/modules/* ${CHROOT}/usr/lib/modules/
+rm -rf ${CHROOT}/root/boot
+rm -rf ${CHROOT}/root/lib
 
 mkdir -p ${CHROOT}/boot/extlinux
 cp configs/extlinux.conf ${CHROOT}/boot/extlinux
 
 # copy custom dtb's
+mkdir -p ${CHROOT}/boot/dtbs/qcom/
 cp dtbs/* ${CHROOT}/boot/dtbs/qcom/
 
 # create missing directory
