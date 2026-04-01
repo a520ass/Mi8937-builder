@@ -7,7 +7,7 @@ rm -f rootfs.raw boot.raw
 mkdir -p files mnt
 
 # create boot
-truncate -s 67108864 boot.raw
+truncate -s 66060288 boot.raw
 mkfs.ext2 boot.raw
 mount boot.raw mnt
 tar xf rootfs.tgz -C mnt ./boot --exclude='./boot/linux.efi' --strip-components=2
