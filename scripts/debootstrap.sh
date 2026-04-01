@@ -99,6 +99,7 @@ wget -O - https://github.com/a520ass/Armbian-build/releases/download/Linux_Kerne
 mkdir -p ${CHROOT}/boot/
 cp -rfpa ${CHROOT}/root/boot/* ${CHROOT}/boot/
 cp -rfpa ${CHROOT}/root/lib/modules/* ${CHROOT}/usr/lib/modules/
+rm -rf ${CHROOT}/boot/vmlinux*
 rm -rf ${CHROOT}/root/boot
 rm -rf ${CHROOT}/root/lib
 
