@@ -97,9 +97,10 @@ wget https://github.com/a520ass/Armbian-build/releases/download/Linux_Kernel_202
 tar -xzf linux-6.19.5-msm8937-arm64.tar.gz -C ${CHROOT}/root/ 2>/dev/null
 mkdir -p ${CHROOT}/boot/
 cp -rfpa ${CHROOT}/root/boot/* ${CHROOT}/boot/
+mkdir -p ${CHROOT}/usr/lib/modules/
 cp -rfpa ${CHROOT}/root/lib/modules/* ${CHROOT}/usr/lib/modules/
 rm -rf ${CHROOT}/boot/vmlinux*
-rm -rf ${CHROOT}/boot/System.map-6.19.5-msm8937
+rm -rf ${CHROOT}/boot/System.map*
 rm -rf ${CHROOT}/root/boot
 rm -rf ${CHROOT}/root/lib
 
