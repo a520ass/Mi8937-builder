@@ -93,12 +93,13 @@ chmod +x ${CHROOT}/usr/sbin/wifi-ap.sh
 cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
 
 # install targz kernel
-wget -O - https://github.com/a520ass/Armbian-build/releases/download/Linux_Kernel_2026.03.30-0939/linux-6.19.5-msm8937-arm64.tar.gz \
-    | tar xzf - -C ${CHROOT}/root/ 2>/dev/null
+wget https://github.com/a520ass/Armbian-build/releases/download/Linux_Kernel_2026.03.30-0939/linux-6.19.5-msm8937-arm64.tar.gz
+tar -xzf linux-6.19.5-msm8937-arm64.tar.gz -C ${CHROOT}/root/ 2>/dev/null
 mkdir -p ${CHROOT}/boot/
 cp -rfpa ${CHROOT}/root/boot/* ${CHROOT}/boot/
 cp -rfpa ${CHROOT}/root/lib/modules/* ${CHROOT}/usr/lib/modules/
 rm -rf ${CHROOT}/boot/vmlinux*
+rm -rf ${CHROOT}/boot/System.map-6.19.5-msm8937
 rm -rf ${CHROOT}/root/boot
 rm -rf ${CHROOT}/root/lib
 
@@ -116,7 +117,16 @@ mkdir -p ${CHROOT}/lib/firmware/msm-firmware-loader
 echo "PARTUUID=8B8169CE-CC60-B23A-5411-132D6AE86697\t/boot\text2\tdefaults\t0 2" > ${CHROOT}/etc/fstab
 
 # initramfs
+mount -t proc proc ${CHROOT}/proc/
+mount -t sysfs sys ${CHROOT}/sys/
+mount -o bind /dev/ ${CHROOT}/dev/
+mount -o bind /dev/pts/ ${CHROOT}/dev/pts/
+mount -o bind /run ${CHROOT}/run/
 chroot ${CHROOT} qemu-aarch64-static /bin/sh -c "update-initramfs -c -k all"
+# cleanup
+for a in proc sys dev/pts dev run; do
+    umount ${CHROOT}/${a}
+done;
 rm -f ${CHROOT}/usr/bin/qemu-aarch64-static
 
 # backup rootfs
