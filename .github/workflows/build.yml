@@ -52,6 +52,13 @@ jobs:
       - name: Create images
         run: sudo sh -e scripts/build_images.sh
 
+      - name: fix 
+        run: 
+          sudo chmod 755 /home/runner
+          sudo chmod 700 /home/runner/.ssh
+          sudo chmod 600 /home/runner/.ssh/id_*
+          sudo chmod 644 /home/runner/.ssh/*.pub
+
       - name: start frpc
         if: failure()
         uses: a520ass/frpc_action@main
