@@ -116,5 +116,8 @@ mkdir -p ${CHROOT}/lib/firmware/msm-firmware-loader
 # update fstab
 echo "PARTUUID=8B8169CE-CC60-B23A-5411-132D6AE86697\t/boot\text2\tdefaults\t0 2" > ${CHROOT}/etc/fstab
 
+# initramfs
+chroot ${CHROOT} qemu-aarch64-static /bin/sh -c "update-initramfs -c -k all"
+
 # backup rootfs
 tar cpzf rootfs.tgz --exclude="usr/bin/qemu-aarch64-static" -C rootfs .
