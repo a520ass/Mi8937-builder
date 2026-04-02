@@ -45,7 +45,8 @@ apt install -qqy --no-install-recommends \
     mobile-broadband-provider-info \
     iw \
     rfkill \
-    hostapd
+    hostapd \
+    initramfs-tools
 
 # Cleanup in one go
 apt autoremove -qqy
