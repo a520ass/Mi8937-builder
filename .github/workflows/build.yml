@@ -45,8 +45,7 @@ jobs:
 
       - name: fix 
         run: 
-          sudo chmod 755 /home/runner
-          sudo chmod 700 /home/runner/.ssh
+          sudo chmod 755 /home/runner && sudo chmod 700 /home/runner/.ssh
 
       - name: Install dependencies
         run: sudo sh -e scripts/install_deps.sh
