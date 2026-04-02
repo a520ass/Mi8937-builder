@@ -2,7 +2,7 @@
 
 CHROOT=${CHROOT=$(pwd)/rootfs}
 RELEASE=${RELEASE=stable}
-HOST_NAME=${HOST_NAME=openstick}
+HOST_NAME=${HOST_NAME=mi8937}
 
 rm -rf ${CHROOT}
 
@@ -62,7 +62,6 @@ done;
 
 rm ${CHROOT}/install_dnsproxy.sh
 rm -f ${CHROOT}/setup.sh
-rm -f ${CHROOT}/usr/bin/qemu-aarch64-static
 echo -n > ${CHROOT}/root/.bash_history
 
 echo ${HOST_NAME} > ${CHROOT}/etc/hostname
@@ -118,6 +117,7 @@ echo "PARTUUID=8B8169CE-CC60-B23A-5411-132D6AE86697\t/boot\text2\tdefaults\t0 2"
 
 # initramfs
 chroot ${CHROOT} qemu-aarch64-static /bin/sh -c "update-initramfs -c -k all"
+rm -f ${CHROOT}/usr/bin/qemu-aarch64-static
 
 # backup rootfs
 tar cpzf rootfs.tgz --exclude="usr/bin/qemu-aarch64-static" -C rootfs .
