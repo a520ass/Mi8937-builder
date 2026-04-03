@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 CHROOT=${CHROOT=$(pwd)/rootfs}
-RELEASE=${RELEASE=stable}
+RELEASE=${RELEASE=jammy}
 HOST_NAME=${HOST_NAME=mi8937}
 
 rm -rf ${CHROOT}
@@ -10,13 +10,14 @@ rm -rf ${CHROOT}
 echo "Using mmdebstrap for fast bootstrap..."
 mmdebstrap --arch=arm64 \
     --include=systemd,udev,dbus,apt,wget,ca-certificates \
-    --keyring=/usr/share/keyrings/debian-archive-keyring.gpg \
-    ${RELEASE} ${CHROOT}
+    --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg \
+    ${RELEASE} ${CHROOT} http://ports.ubuntu.com/ubuntu-ports
 
 cat << EOF > ${CHROOT}/etc/apt/sources.list
-deb http://deb.debian.org/debian ${RELEASE} main contrib non-free-firmware
-deb http://deb.debian.org/debian-security/ ${RELEASE}-security main contrib non-free-firmware
-deb http://deb.debian.org/debian ${RELEASE}-updates main contrib non-free-firmware
+deb http://ports.ubuntu.com/ubuntu-ports ${RELEASE} main restricted universe multiverse
+deb http://ports.ubuntu.com/ubuntu-ports ${RELEASE}-updates main restricted universe multiverse
+deb http://ports.ubuntu.com/ubuntu-ports ${RELEASE}-security main restricted universe multiverse
+deb http://ports.ubuntu.com/ubuntu-ports ${RELEASE}-backports main restricted universe multiverse
 EOF
 
 # Speed up apt
@@ -50,6 +51,9 @@ cp configs/99-custom.conf ${CHROOT}/etc/NetworkManager/conf.d/
 # chroot setup
 cp configs/install_dnsproxy.sh ${CHROOT}
 cp scripts/setup.sh ${CHROOT}
+
+# copy debs  setup.sh install
+cp debs/* ${CHROOT}/root/
 
 # Copy qemu static and run setup script in chroot
 cp /usr/bin/qemu-aarch64-static ${CHROOT}/usr/bin/

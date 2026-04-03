@@ -19,18 +19,15 @@ apt upgrade -qqy --with-new-pkgs
 apt install -qqy --no-install-recommends \
     build-essential \
     dnsmasq \
-    libconfig11 \
+    libconfig9 \
     libconfig-dev \
     libc6-dev \
     linux-libc-dev \
     locales \
     modemmanager \
-    netcat-traditional \
-    systemd-resolved \
+    netcat-openbsd \
     network-manager \
     openssh-server \
-    qrtr-tools \
-    rmtfs \
     sudo \
     systemd-timesyncd \
     tzdata \
@@ -48,6 +45,10 @@ apt install -qqy --no-install-recommends \
     hostapd \
     initramfs-tools
 
+# install deb
+dpkg -i /root/*.deb
+rm -rf /root/*.deb
+
 # Cleanup in one go
 apt autoremove -qqy
 apt clean
@@ -60,7 +61,7 @@ find /var/log -type f -delete
 passwd -dl root
 
 # Add user
-adduser --disabled-password --comment "" user
+adduser --disabled-password user
 # Set password
 passwd user << EOD
 1
