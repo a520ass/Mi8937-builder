@@ -86,17 +86,9 @@ jobs:
         env:
           ZIP_NAME: ${{ steps.artifact_name.outputs.zip }}
         run: |
-          python3 - << 'PY'
-          import os, zipfile
-          zip_name = os.environ['ZIP_NAME']
-          with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zf:
-              for root, _dirs, files in os.walk('files'):
-                  for f in files:
-                      full = os.path.join(root, f)
-                      arc = os.path.relpath(full, 'files')
-                      zf.write(full, arc)
-          print(f"Created {zip_name}")
-          PY
+          cd files
+          zip -r ../"${ZIP_NAME}" .
+          echo "Created ${ZIP_NAME}"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
