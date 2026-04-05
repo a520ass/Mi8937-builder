@@ -81,20 +81,24 @@ jobs:
           esac
           echo "base=$base" >> "$GITHUB_OUTPUT"
           echo "zip=${base}.zip" >> "$GITHUB_OUTPUT"
+          echo "rawzip=${base}.raw.zip" >> "$GITHUB_OUTPUT"
 
       - name: Zip artifact
         env:
           ZIP_NAME: ${{ steps.artifact_name.outputs.zip }}
+          RAWZIP_NAME: ${{ steps.artifact_name.outputs.rawzip }}
         run: |
           cd files
           zip -r ../"${ZIP_NAME}" .
           echo "Created ${ZIP_NAME}"
+          cd ..
+          zip -r "${RAWZIP_NAME}" *.raw
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.artifact_name.outputs.base }}
-          path: ${{ steps.artifact_name.outputs.zip }}
+          path: ${{ steps.artifact_name.outputs.rawzip }}
 
       - name: Create Release for this commit
         env:
