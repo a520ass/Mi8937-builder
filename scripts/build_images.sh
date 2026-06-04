@@ -15,7 +15,7 @@ umount mnt
 
 # create root img
 truncate -s 1610612736 rootfs.raw
-mkfs.ext4 rootfs.raw
+mkfs.ext4 -F -U "86c05746-759e-4d3e-98c1-7eded328b685" rootfs.raw
 mount rootfs.raw mnt
 tar xpf rootfs.tgz -C mnt --exclude='./boot/*' --exclude='./root/*' --exclude='./dev/*'
 
