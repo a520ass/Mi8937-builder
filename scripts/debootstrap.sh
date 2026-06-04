@@ -119,7 +119,7 @@ cp dtbs/* ${CHROOT}/boot/dtbs/qcom/
 mkdir -p ${CHROOT}/lib/firmware/msm-firmware-loader
 
 # update fstab
-printf "PARTUUID=8CA60C57-5EB2-1D44-4488-9FBFFAD1E061\t/\text4\trw,noatime\t0 1\n" > ${CHROOT}/etc/fstab
+printf "UUID=86c05746-759e-4d3e-98c1-7eded328b685\t/\text4\trw,noatime\t0 1\n" > ${CHROOT}/etc/fstab
 #echo -e "PARTUUID=8CA60C57-5EB2-1D44-4488-9FBFFAD1E061\t/\text4\trw,noatime\t0 1" > ${CHROOT}/etc/fstab
 #echo "PARTUUID=8B8169CE-CC60-B23A-5411-132D6AE86697\t/boot\text2\tdefaults\t0 2" >> ${CHROOT}/etc/fstab
 
