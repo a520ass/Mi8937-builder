@@ -1,7 +1,7 @@
 # Image Builder
 Image builder for Mi8937
 
-进入原厂的fastboot安装lk2nd到boot
+进入原厂的fastboot安装lk2nd到boot  
 https://github.com/msm8916-mainline/lk2nd/releases/download/22.0/lk2nd-msm8952.img  
 fastboot flash boot lk2nd-msm8952.img
 
@@ -13,6 +13,17 @@ fastboot flash boot lk2nd-msm8952.img
 再刷ubuntu 的 boot system  
 fastboot flash boot boot.bin  
 fastboot flash system rootfs.bin  
+
+  
+
+ssh的 用户名：user   密码：1  
+
+亮度控制，关背光  
+echo 0 > /sys/class/backlight/backlight/brightness  
+查看电量  
+cat /sys/class/power_supply/qcom-battery/capacity  
+#otg状态，插入otg线后，会自动变成host模式    
+cat /sys/class/extcon/extcon0/state  
 
 =================================================
 
