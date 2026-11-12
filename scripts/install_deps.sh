@@ -21,6 +21,7 @@ apt install -y \
     python3-cryptography \
     python3-pyasn1-modules \
     python3-pycryptodome \
-    qemu-user-static \
+    qemu-user \
+    qemu-user-binfmt \
     unzip \
     wget 

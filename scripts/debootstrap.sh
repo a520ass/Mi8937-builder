@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 CHROOT=${CHROOT=$(pwd)/rootfs}
-RELEASE=${RELEASE=jammy}
+RELEASE=${RELEASE=resolute}
 HOST_NAME=${HOST_NAME=mi8937}
 
 rm -rf ${CHROOT}
@@ -53,11 +53,11 @@ cp configs/install_dnsproxy.sh ${CHROOT}
 cp scripts/setup.sh ${CHROOT}
 
 # copy debs  setup.sh install
-cp debs/* ${CHROOT}/root/
+#cp debs/* ${CHROOT}/root/
 
 # Copy qemu static and run setup script in chroot
-cp /usr/bin/qemu-aarch64-static ${CHROOT}/usr/bin/
-chroot ${CHROOT} qemu-aarch64-static /bin/sh -c "/setup.sh"
+#cp /usr/bin/qemu-aarch64-static ${CHROOT}/usr/bin/
+chroot ${CHROOT} /bin/sh -c "/setup.sh"
 
 # cleanup
 for a in proc sys dev/pts dev run; do
@@ -129,12 +129,12 @@ mount -t sysfs sys ${CHROOT}/sys/
 mount -o bind /dev/ ${CHROOT}/dev/
 mount -o bind /dev/pts/ ${CHROOT}/dev/pts/
 mount -o bind /run ${CHROOT}/run/
-chroot ${CHROOT} qemu-aarch64-static /bin/sh -c "update-initramfs -c -k all"
+chroot ${CHROOT} /bin/sh -c "update-initramfs -c -k all"
 # cleanup
 for a in proc sys dev/pts dev run; do
     umount ${CHROOT}/${a}
 done;
-rm -f ${CHROOT}/usr/bin/qemu-aarch64-static
+#rm -f ${CHROOT}/usr/bin/qemu-aarch64-static
 
 # backup rootfs
 tar cpzf rootfs.tgz --exclude="usr/bin/qemu-aarch64-static" -C rootfs .
