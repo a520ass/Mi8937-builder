@@ -125,10 +125,10 @@ jobs:
           notes="Automated release for commit ${GITHUB_SHA} on ${GITHUB_REF_NAME}"
 
           asset="${{ steps.artifact_name.outputs.zip }}"
+          assetraw="${{ steps.artifact_name.outputs.rawzip }}"
 
           gh release create "$tag" \
             --target "$GITHUB_SHA" \
             --title "$title" \
             --notes "$notes" \
-            --prerelease \
-            "$asset"
+            "$asset" "$assetraw"
