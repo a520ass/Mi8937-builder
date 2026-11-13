@@ -97,14 +97,15 @@ chmod +x ${CHROOT}/usr/sbin/wifi-ap.sh
 cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
 
 # install targz kernel
-wget https://github.com/a520ass/Armbian-build/releases/download/Linux_Kernel_2026.03.30-0939/linux-6.19.5-msm8937-arm64.tar.gz
-tar -xzf linux-6.19.5-msm8937-arm64.tar.gz -C ${CHROOT}/root/ 2>/dev/null
+wget https://github.com/a520ass/Actions-build/releases/download/Linux_Kernel_2026.11.11-0927/linux-7.1.3-msm8937-arm64.tar.gz
+tar -xzf linux-7.1.3-msm8937-arm64.tar.gz -C ${CHROOT}/root/ 2>/dev/null
 mkdir -p ${CHROOT}/boot/
 cp -rfpa ${CHROOT}/root/boot/* ${CHROOT}/boot/
 mkdir -p ${CHROOT}/usr/lib/modules/
 cp -rfpa ${CHROOT}/root/lib/modules/* ${CHROOT}/usr/lib/modules/
 rm -rf ${CHROOT}/boot/vmlinux*
 rm -rf ${CHROOT}/boot/System.map*
+find ${CHROOT}/boot/dtbs/  -type f ! -name 'msm*.dtb' -delete
 rm -rf ${CHROOT}/root/boot
 rm -rf ${CHROOT}/root/lib
 
